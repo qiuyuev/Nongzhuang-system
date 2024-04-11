@@ -21,20 +21,15 @@ enum Time {
     FPS16 = 60
 };
 
-enum Flag {
-    START = 0,
-    STOP
-};
-
 typedef enum {
-    DAT_OK = 0,
-    DAT_ERROR
+    DAT_ERROR = 0,
+    DAT_OK
 } DataStatusType;
 
 // PIN Define
 #define DEVICES          4
-#define FRAME_SS             0xC3
-#define FRAME_SP             0x99
+#define START_M          0xC3
+#define ACK_M            0x11
 #define ECHO_OK          HAL_GPIO_ReadPin(l_uc->Echo_Port, l_uc->Echo_Pin)
 #define WAIT_FOR_NEXT(x) HAL_Delay(x)
 // U1 Set
@@ -86,8 +81,9 @@ typedef enum {
 #define TRIG_PORT_8 GPIOA
 
 // Function Declaration
+void Ultrasonic_ACK(void);
 void Ultrasonic_Upload(HC_SR04 *l_uc);
-DataStatusType Ultrasonic_Download(enum Flag flag);
+DataStatusType Ultrasonic_Download(void);
 
 void Multi_Measure(HC_SR04 *l_uc);
 void Measure_lenth(HC_SR04 *l_uc);

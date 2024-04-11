@@ -1,5 +1,11 @@
 #include "HC_SR04.h"
 
+void Ultrasonic_ACK(void)
+{
+    uint8_t Ack_Byte = ACK_M;
+    HAL_UART_Transmit(&huart1,&Ack_Byte,1,100);
+}
+
 /**
  * @brief 将测量数据上传主机
  *
@@ -19,29 +25,19 @@ void Ultrasonic_Upload(HC_SR04 *l_uc)
 
 /**
  * @brief 接收主机命令
- * 
+ *
  * @param flag 启动or停止
  * @return DataStatusType 状态
  */
-DataStatusType Ultrasonic_Download(enum Flag flag)
+DataStatusType Ultrasonic_Download(void)
 {
     uint8_t temp = 0x00;
     HAL_UART_Receive(&huart1, &temp, 1, 100);
-    switch (flag) {
-        case START:
-            if (temp == FRAME_SS) {
-                return DAT_OK;
-            }
-            break;
 
-        case STOP:
-            if (temp == FRAME_SP) {
-                return DAT_OK;
-            }
-            break;
-        default:
-            return DAT_ERROR;
-    }
+    if (temp == START_M)
+        return DAT_OK;
+    else
+        return DAT_ERROR;
 }
 
 /**

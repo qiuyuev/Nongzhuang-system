@@ -9,7 +9,7 @@
 
 typedef enum {
     DAT_OK = 0,
-    DAT_ERRROR
+    DAT_ERROR
 } DataStatusType;
 
 DataStatusType Sensor_CMD_TX(uint8_t *cmd);

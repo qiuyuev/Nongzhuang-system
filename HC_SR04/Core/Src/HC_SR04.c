@@ -7,15 +7,41 @@
  */
 void Ultrasonic_Upload(HC_SR04 *l_uc)
 {
-    uint8_t buffer[DEVICES+2] = {0x00};
-    buffer[0] = 0xAA;
-    buffer[DEVICES+1] = 0xFF;
-    for (uint8_t i = 1; i < (DEVICES+1); i++) {
+    uint8_t buffer[DEVICES + 2] = {0x00};
+    buffer[0]                   = 0xAA;
+    buffer[DEVICES + 1]         = 0xFF;
+    for (uint8_t i = 1; i < (DEVICES + 1); i++) {
         buffer[i] = (uint8_t)l_uc->data;
         l_uc++;
     }
+    HAL_UART_Transmit(&huart1, buffer, DEVICES + 2, 100);
+}
 
-    HAL_UART_Transmit(&huart1, buffer, DEVICES+2, 100);
+/**
+ * @brief 接收主机命令
+ * 
+ * @param flag 启动or停止
+ * @return DataStatusType 状态
+ */
+DataStatusType Ultrasonic_Download(enum Flag flag)
+{
+    uint8_t temp = 0x00;
+    HAL_UART_Receive(&huart1, &temp, 1, 100);
+    switch (flag) {
+        case START:
+            if (temp == FRAME_SS) {
+                return DAT_OK;
+            }
+            break;
+
+        case STOP:
+            if (temp == FRAME_SP) {
+                return DAT_OK;
+            }
+            break;
+        default:
+            return DAT_ERROR;
+    }
 }
 
 /**
@@ -26,7 +52,7 @@ void Ultrasonic_Upload(HC_SR04 *l_uc)
 void Multi_Measure(HC_SR04 *l_uc)
 {
     for (uint8_t i = 0; i < DEVICES; i++) {
-        Measure_lenth(l_uc+i);
+        Measure_lenth(l_uc + i);
     }
     WAIT_FOR_NEXT(FPS20);
 }

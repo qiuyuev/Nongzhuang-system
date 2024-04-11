@@ -123,8 +123,13 @@ int main(void)
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
-        Multi_Measure(&UC[1]);
-        Ultrasonic_Upload(&UC[1]);
+        if (Ultrasonic_Download(START)) {
+            Multi_Measure(&UC[1]);
+            Ultrasonic_Upload(&UC[1]);
+        }
+        if (Ultrasonic_Download(STOP)) {
+            __NOP();
+        }
         // Show_DAT(&UC[1]);
         /* USER CODE END WHILE */
 

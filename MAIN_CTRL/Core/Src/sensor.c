@@ -30,6 +30,6 @@ DataStatusType Sensor_Recevie(uint8_t *buf)
         }
         return DAT_OK;
     } else {
-        return DAT_ERRROR;
+        return DAT_ERROR;
     }
 }

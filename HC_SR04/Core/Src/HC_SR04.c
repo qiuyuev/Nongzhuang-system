@@ -14,8 +14,8 @@ void Ultrasonic_ACK(void)
 void Ultrasonic_Upload(HC_SR04 *l_uc)
 {
     uint8_t buffer[DEVICES + 2] = {0x00};
-    buffer[0]                   = 0xAA;
-    buffer[DEVICES + 1]         = 0xFF;
+    buffer[0]                   = HEAD;
+    buffer[DEVICES + 1]         = TAIL;
     for (uint8_t i = 1; i < (DEVICES + 1); i++) {
         buffer[i] = (uint8_t)l_uc->data;
         l_uc++;

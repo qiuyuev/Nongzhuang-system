@@ -7,12 +7,17 @@
 #define HEAD 0xAA
 #define TAIL 0xFF
 
+// CMD List
+#define START_M 0xC3
+#define ACK_M   0x11
+
 typedef enum {
-    DAT_OK = 0,
-    DAT_ERROR
+    DAT_ERROR = 0,
+    DAT_OK
 } DataStatusType;
 
-DataStatusType Sensor_CMD_TX(uint8_t *cmd);
-DataStatusType Sensor_Recevie(uint8_t *buf);
+DataStatusType Rec_Ack(void);
+DataStatusType Sensor_Rx(uint8_t *buf);
+DataStatusType Sensor_TX_CMD(uint8_t cmd);
 
 #endif

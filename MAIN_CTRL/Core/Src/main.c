@@ -94,13 +94,15 @@ int main(void)
   MX_UART4_Init();
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
-  
+  uint8_t buf[10];
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -26,10 +26,14 @@ typedef enum {
     DAT_OK
 } DataStatusType;
 
+#define DEVICES 4
+#define HEAD    0xAA
+#define TAIL    0xFF
+// CMD List
+#define START_M 0xC3
+#define ACK_M   0x11
+
 // PIN Define
-#define DEVICES          4
-#define START_M          0xC3
-#define ACK_M            0x11
 #define ECHO_OK          HAL_GPIO_ReadPin(l_uc->Echo_Port, l_uc->Echo_Pin)
 #define WAIT_FOR_NEXT(x) HAL_Delay(x)
 // U1 Set

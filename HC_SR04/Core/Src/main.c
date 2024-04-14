@@ -123,9 +123,17 @@ int main(void)
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
-        Multi_Measure(&UC[1]);
-        Ultrasonic_Upload(&UC[1]);
-        // Show_DAT(&UC[1]);
+        // 如果收到启动命令
+        if (Ultrasonic_Download()) {
+            // 响应主机
+            Ultrasonic_ACK();
+            // 启动测量
+            Multi_Measure(&UC[1]);
+            // 上传数据
+            Ultrasonic_Upload(&UC[1]);
+            // Show_DAT(&UC[1]);
+        }
+
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */

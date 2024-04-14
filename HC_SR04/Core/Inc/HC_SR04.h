@@ -15,14 +15,25 @@ typedef struct
 } HC_SR04;
 
 enum Time {
-    FPS66  = 15, // 2.5 m
-    FPS40  = 25, // 4m
-    FPS20  = 50,
-    FPS16  = 60
+    FPS66 = 15, // 2.5 m
+    FPS40 = 25, // 4m
+    FPS20 = 50,
+    FPS16 = 60
 };
 
+typedef enum {
+    DAT_ERROR = 0,
+    DAT_OK
+} DataStatusType;
+
+#define DEVICES 4
+#define HEAD    0xAA
+#define TAIL    0xFF
+// CMD List
+#define START_M 0xC3
+#define ACK_M   0x11
+
 // PIN Define
-#define DEVICES          4
 #define ECHO_OK          HAL_GPIO_ReadPin(l_uc->Echo_Port, l_uc->Echo_Pin)
 #define WAIT_FOR_NEXT(x) HAL_Delay(x)
 // U1 Set
@@ -74,7 +85,9 @@ enum Time {
 #define TRIG_PORT_8 GPIOA
 
 // Function Declaration
+void Ultrasonic_ACK(void);
 void Ultrasonic_Upload(HC_SR04 *l_uc);
+DataStatusType Ultrasonic_Download(void);
 
 void Multi_Measure(HC_SR04 *l_uc);
 void Measure_lenth(HC_SR04 *l_uc);

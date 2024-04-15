@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "sensor.h"
+#include "yundong.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,6 +96,7 @@ int main(void)
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
   uint8_t buf[10];
+  char flag;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -106,6 +108,85 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+  switch(flag)
+  {
+    case 0:
+      yundong(0);
+      //小延时
+      flag++;
+    
+    case 1:   //直行
+      yundong(1);
+      if(chao1<20)
+      {flag++;}
+      break;
+    
+    case 2:   //右转,跨第一个龙
+      yundong(3);
+      if(chao4<7&&chao6<7)
+      {flag++;}
+      break;
+
+    case 3:   //后退
+      yundong(2);
+      //定时器小延时
+      if(chao2>60&&chao5>60)
+      {flag++;}
+
+    case 4:   //左转,跨第二个龙
+      yundong(3);
+      if(chao2<7&&chao5<7)
+      {flag++;}
+      break;
+    
+    case 5:   //后退           
+      yundong(2);
+      //定时器小延时
+      if(chao4>60&&chao6>60)
+      {flag++;}
+
+    case 6:   //右转,跨第三个龙
+      yundong(3);
+      if(chao4<7&&chao6<7)
+      {flag++;}
+      break;
+
+    case 7:   //后退
+      yundong(2);
+      //定时器小延时
+      if(chao2>60&&chao5>60)
+      {flag++;}
+
+    case 8:   //左转,跨第四个龙
+      yundong(3);
+      if(chao2<7&&chao5<7)
+      {flag++;}
+      break;
+    
+    case 9:   //后退           
+      yundong(2);
+      //定时器小延时
+      if(chao4>60&&chao6>60)
+      {flag++;}
+
+    case 10:   //右转,跨第五个龙
+      yundong(3);
+      if(chao4<7&&chao6<7)
+      {flag++;}
+      break;
+
+    case 11:   //左转,到入口
+      yundong(3);
+      if(chao2<7&&chao5<7)
+      {flag++;}
+      break;
+
+    case 12:   //后退           
+      yundong(2);
+      //定时器小延时
+      if(chao4>60&&chao6>60)
+      {flag++;}
+  }
   }
   /* USER CODE END 3 */
 }

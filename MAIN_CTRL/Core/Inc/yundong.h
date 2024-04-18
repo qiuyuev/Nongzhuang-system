@@ -4,3 +4,4 @@ void duojijiangdu(char d1,char d2);
 void yundong(char i,char sp);
 void zitai1(char i,float chao3);
 void zitai2(char i,float chao1,float chao2);   //i1为前进，i2为后退
+void test_task(char flag);

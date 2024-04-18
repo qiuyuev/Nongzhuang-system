@@ -35,7 +35,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define uartMt &huart1
+#define uartUc &huart2
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -95,98 +96,27 @@ int main(void)
   MX_UART4_Init();
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
+	
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);  /* ������ʱ��3ͨ��1��PWM��� */
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);  /* ������ʱ��3ͨ��2��PWM��� */
   uint8_t buf[10];
-  char flag;
+//  char flag;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-    
+//		Sensor_Task(buf);
+		
+		//__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 5);      	 //���1
+		__HAL_TIM_SetCompare(&htim4, TIM_CHANNEL_1, 135);       //���2
+		//yundong();
+		//test_task(flag);		
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  switch(flag)
-  {
-    case 0:
-      yundong(0);
-      //小延时
-      flag++;
-    
-    case 1:   //直行
-      yundong(1);
-      if(chao1<20)
-      {flag++;}
-      break;
-    
-    case 2:   //右转,跨第一个龙
-      yundong(3);
-      if(chao4<7&&chao6<7)
-      {flag++;}
-      break;
-
-    case 3:   //后退
-      yundong(2);
-      //定时器小延时
-      if(chao2>60&&chao5>60)
-      {flag++;}
-
-    case 4:   //左转,跨第二个龙
-      yundong(3);
-      if(chao2<7&&chao5<7)
-      {flag++;}
-      break;
-    
-    case 5:   //后退           
-      yundong(2);
-      //定时器小延时
-      if(chao4>60&&chao6>60)
-      {flag++;}
-
-    case 6:   //右转,跨第三个龙
-      yundong(3);
-      if(chao4<7&&chao6<7)
-      {flag++;}
-      break;
-
-    case 7:   //后退
-      yundong(2);
-      //定时器小延时
-      if(chao2>60&&chao5>60)
-      {flag++;}
-
-    case 8:   //左转,跨第四个龙
-      yundong(3);
-      if(chao2<7&&chao5<7)
-      {flag++;}
-      break;
-    
-    case 9:   //后退           
-      yundong(2);
-      //定时器小延时
-      if(chao4>60&&chao6>60)
-      {flag++;}
-
-    case 10:   //右转,跨第五个龙
-      yundong(3);
-      if(chao4<7&&chao6<7)
-      {flag++;}
-      break;
-
-    case 11:   //左转,到入口
-      yundong(3);
-      if(chao2<7&&chao5<7)
-      {flag++;}
-      break;
-
-    case 12:   //后退           
-      yundong(2);
-      //定时器小延时
-      if(chao4>60&&chao6>60)
-      {flag++;}
-  }
   }
   /* USER CODE END 3 */
 }
